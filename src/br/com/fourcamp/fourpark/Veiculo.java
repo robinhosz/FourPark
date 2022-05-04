@@ -39,6 +39,7 @@ public class Veiculo {
 		placa = sc.next();
 		
 		System.out.print("Digite o nome do proprietário: ");
+		sc.nextLine();
 		proprietario = sc.nextLine();
 		
 		System.out.print("Digite o documento do proprietário: ");

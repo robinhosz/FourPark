@@ -12,12 +12,11 @@ public class Principal {
 		
 		System.out.println(vagas[1]);
 		
-		Veiculo carro = new Veiculo("jose", "fusca", "ABC1234");
+		Veiculo carro = new Veiculo();
+		carro.cadastraVeiculo();
 		
 		Servico.estacionar(carro, vagas);
 		Servico.retirar(carro, vagas);
-		
-		
 	
 		
 	}
