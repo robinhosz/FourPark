@@ -26,8 +26,8 @@ public interface Servico {
 				vagas[x].setVeiculo(veiculo);
 				vagas[x].setHoraEntrada(LocalDateTime.now());
 				break;
-			} else {
-				System.out.println("N„o h· vagas disponÌveis");
+			} else if (x==50) {
+				System.out.println("N√£o h√° vagas dispon√≠veis");
 				break;
 			}
 		}
@@ -42,8 +42,8 @@ public interface Servico {
 				vagas[x].setOcupado(false);
 				vagas[x].setVeiculo(null);
 				break;
-			} else {
-				System.out.println("Este veÌculo n„o est· em nosso estacionamento");
+			} else if (x==50) {
+				System.out.println("Este ve√≠culo n√£o est√° em nosso estacionamento");
 				break;
 			}
 	}
