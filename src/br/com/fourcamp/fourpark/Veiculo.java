@@ -49,8 +49,8 @@ public class Veiculo {
 
 	@Override
 	public String toString() {
-		return "Veículo [modelo: " + modelo + ", placa: " + placa + ", proprietario: " + proprietario + ", documento:"
-				+ documento + "]";
+		return "veículo modelo " + modelo + ", de placa " + placa + ", de " + proprietario + ", portador(a) do documento "
+				+ documento;
 	}
 	
 }

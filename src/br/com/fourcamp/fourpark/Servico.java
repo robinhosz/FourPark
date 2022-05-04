@@ -28,7 +28,7 @@ public interface Servico {
             if (!vagas[i].getOcupado()){
                 System.out.println("A vaga " + vagas[i].getPosicao() + " está livre");
             } else {
-                System.out.println("A vaga " + vagas[i].getPosicao() + " está ocupada pelo veiculo " + vagas[i].getVeiculo());
+                System.out.println("A vaga " + vagas[i].getPosicao() + " está ocupada pelo " + vagas[i].getVeiculo());
             }
         }
  
@@ -53,7 +53,7 @@ public interface Servico {
 		for(int x=0; x<=49; x++) {
 			if (vagas[x].getVeiculo().equals(veiculo)) {
 				vagas[x].setHoraSaida(LocalDateTime.now());
-				System.out.println(vagas[x].getVeiculo() + " foi estacionado em " + dtf.format(vagas[x].getHoraEntrada()) + 
+				System.out.println(vagas[x].getVeiculo() + ", foi estacionado em " + dtf.format(vagas[x].getHoraEntrada()) + 
 						" e retirado em " + dtf.format(vagas[x].getHoraSaida()));
 				vagas[x].setOcupado(false);
 				vagas[x].setVeiculo(null);
