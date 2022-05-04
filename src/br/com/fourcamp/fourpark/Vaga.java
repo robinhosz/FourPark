@@ -9,6 +9,7 @@ public class Vaga {
 	private LocalDateTime horaSaida;
 	private Veiculo veiculo;
 	private Boolean ocupado;
+	private String nome;
 	
 	public Vaga(Integer posicao) {
 		this.ocupado = false;
