@@ -10,15 +10,16 @@ public class Principal {
 		
 		Vaga[] vagas = Servico.criarEstacionamento();
 		
-		System.out.println(vagas[1]);
-		
 		Veiculo carro = new Veiculo();
 		carro.cadastraVeiculo();
 		
 		Servico.estacionar(carro, vagas);
-		Servico.retirar(carro, vagas);
-	
 		
+		Servico.mostrarTodasVagas(vagas);
+		
+		Servico.retirar(carro, vagas);
+		
+		Servico.mostrarTodasVagas(vagas);
 	}
 	
 	

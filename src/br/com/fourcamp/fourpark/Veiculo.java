@@ -44,6 +44,7 @@ public class Veiculo {
 		
 		System.out.print("Digite o documento do proprietário: ");
 		documento = sc.next();
+		
 	}
 
 	@Override
