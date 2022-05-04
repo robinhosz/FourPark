@@ -1,14 +1,24 @@
 package br.com.fourcamp.fourpark;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
-public class Principal implements Servico {
+
+public class Principal {
 	
 	public static void main(String[] args)  {
 		
 		Vaga[] vagas = Servico.criarEstacionamento();
 		
 		System.out.println(vagas[1]);
+		
+		Veiculo carro = new Veiculo("jose", "fusca", "ABC1234");
+		
+		Servico.estacionar(carro, vagas);
+		Servico.retirar(carro, vagas);
+		
+		
+	
 		
 	}
 	
