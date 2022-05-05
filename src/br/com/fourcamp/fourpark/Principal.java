@@ -1,6 +1,5 @@
 package br.com.fourcamp.fourpark;
 
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 
@@ -11,11 +10,16 @@ public class Principal {
 		Vaga[] vagas = Servico.criarEstacionamento();
 		Scanner sc = new Scanner(System.in);
 		
+		System.out.println("Seja bem vindo ao Fourpark!\n");
+		
 		while(true) {
-			for(Menu m : Menu.values()) {
-				System.out.println("Opção " + m + " >>> " + m.getValor());
-				
-			}
+			System.out.println("1 - Estacionar" +
+					"\n2 - Retirar" +
+					"\n3 - Mostrar vagas livres" + 
+					"\n4 - Mostrar vagas ocupadas" + 
+					"\n5 - Buscar veículo" + 
+					"\n6 - Sair");
+			
 			System.out.print("Digite a opção desejada >>> ");
 			int op = sc.nextInt();
 			if (op == 6) {

@@ -21,6 +21,8 @@ public enum Menu {
 		if (valorMenu == Menu.ESTACIONAR.getValor()) {
 			Veiculo veiculo = new Veiculo();
 			veiculo.cadastraVeiculo();
+			
+			System.out.print("Digite o horário de entrada: ");
 			String hora = sc.next();
 			Servico.estacionar(veiculo, vagas, hora);
 		} else if (valorMenu == Menu.RETIRAR.getValor()) {
@@ -43,13 +45,13 @@ public enum Menu {
 			String placa = sc.next();
 			Integer posicao = Servico.buscaCarro(placa, vagas);
 			if (posicao != 51) {
-				System.out.println("Carro da placa: " + placa + ", está na vaga: " + posicao);
+				System.out.println("Carro da placa: " + placa + ", está na vaga: " + (posicao + 1) + "\n");
 			} else {
-				System.out.println("Este carro não foi encontrado.");
+				System.out.println("Este carro não foi encontrado.\n");
 			}
 		} 
 
 		else
-			System.err.println("OPÇÃO INVÁLIDA TENTE NOVAMENTE");
+			System.err.println("OPÇÃO INVÁLIDA TENTE NOVAMENTE\n");
 	}
 }

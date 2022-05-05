@@ -1,9 +1,6 @@
 package br.com.fourcamp.fourpark;
 
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Scanner;
 
 public interface Servico {
 
@@ -29,7 +26,8 @@ public interface Servico {
 				System.out.println("A vaga " + vagas[i].getPosicao() + " está livre");
 			}
 		}
-
+		
+		System.out.println("");
 	}
 
 	static void mostrarVagasOcupadas(Vaga[] vagas) {
@@ -39,7 +37,7 @@ public interface Servico {
 				System.out.println("A vaga " + vagas[i].getPosicao() + " está ocupada pelo " + vagas[i].getVeiculo());
 			}
 		}
-
+		System.out.println("");
 	}
 
 	static void estacionar(Veiculo veiculo, Vaga[] vagas, String hora) {
@@ -52,10 +50,10 @@ public interface Servico {
 				vagas[x].setOcupado(true);
 				vagas[x].setVeiculo(veiculo);
 				vagas[x].setHoraEntrada(hora);
-				System.out.println("Estacionado com sucesso ás " + hora);
+				System.out.println("Estacionado com sucesso ás " + hora + "\n");
 				break;
 			} else if (x == 49) {
-				System.out.println("Não há vagas disponíveis");
+				System.out.println("Não há vagas disponíveis\n");
 				break;
 			}
 		}
@@ -78,7 +76,7 @@ public interface Servico {
 
 	static void retirar(Integer posicao, Vaga[] vagas, String horaSaida) {
 		vagas[posicao].setHoraSaida(horaSaida);
-		System.out.println(vagas[posicao].getVeiculo() + ", foi retirado da vaga " + posicao + " ás" + horaSaida);
+		System.out.println(vagas[posicao].getVeiculo() + ", foi retirado da vaga " + posicao + " ás" + horaSaida + "\n");
 		vagas[posicao].setOcupado(false);
 		vagas[posicao].setVeiculo(null);
 		
