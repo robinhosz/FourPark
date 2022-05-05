@@ -1,12 +1,10 @@
 package br.com.fourcamp.fourpark;
 
-import java.time.LocalDateTime;
-
 public class Vaga {
 	
 	private Integer posicao;
-	private LocalDateTime horaEntrada;
-	private LocalDateTime horaSaida;
+	private String horaEntrada;
+	private String horaSaida;
 	private Veiculo veiculo;
 	private Boolean ocupado;
 	
@@ -28,19 +26,19 @@ public class Vaga {
 		this.posicao = posicao;
 	}
 
-	public LocalDateTime getHoraEntrada() {
+	public String getHoraEntrada() {
 		return horaEntrada;
 	}
 
-	public void setHoraEntrada(LocalDateTime horaEntrada) {
+	public void setHoraEntrada(String horaEntrada) {
 		this.horaEntrada = horaEntrada;
 	}
 
-	public LocalDateTime getHoraSaida() {
+	public String getHoraSaida() {
 		return horaSaida;
 	}
 
-	public void setHoraSaida(LocalDateTime horaSaida) {
+	public void setHoraSaida(String horaSaida) {
 		this.horaSaida = horaSaida;
 	}
 

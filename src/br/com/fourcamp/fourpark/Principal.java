@@ -9,17 +9,22 @@ public class Principal {
 	public static void main(String[] args)  {
 		
 		Vaga[] vagas = Servico.criarEstacionamento();
+		Scanner sc = new Scanner(System.in);
 		
-		Veiculo carro = new Veiculo();
-		carro.cadastraVeiculo();
+		while(true) {
+			for(Menu m : Menu.values()) {
+				System.out.println("Opção " + m + " >>> " + m.getValor());
+				
+			}
+			System.out.print("Digite a opção desejada >>> ");
+			int op = sc.nextInt();
+			if (op == 6) {
+				break;
+			} else {
+				Menu.escolherOpcaoMenu(op, vagas);
+			}
+		}
 		
-		Servico.estacionar(carro, vagas);
-		
-		Servico.mostrarTodasVagas(vagas);
-		
-		Servico.retirar(carro, vagas);
-		
-		Servico.mostrarTodasVagas(vagas);
 	}
 	
 	
