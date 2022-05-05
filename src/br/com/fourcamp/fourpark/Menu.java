@@ -29,13 +29,14 @@ public enum Menu {
 			case 2 -> {
 				System.out.print("Digite a placa do veiculo >>> ");
 				String placa = sc.next();
-				System.out.print("Digite a hora >> ");
-				String hora = sc.next();
+				
 				Integer posicao = Servico.buscaCarro(placa, vagas);
 				if (posicao == 51) {
 					System.out.println("\nCarro não encontrado\n");
 					return;
 				} else {
+					System.out.print("Digite a hora >> ");
+					String hora = sc.next();
 					Servico.retirar(posicao, vagas, hora);	
 				}
 			}
