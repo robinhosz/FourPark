@@ -9,16 +9,10 @@ public class Principal {
 		
 		Vaga[] vagas = Servico.criarEstacionamento();
 		Scanner sc = new Scanner(System.in);
-		Integer contador = 0;
 		
 		System.out.println("Seja bem vindo ao Fourpark!\n");
 		
-		while(true) {
-			if (contador == 1) {
-				System.out.println("=======================================\n");
-			}
-			contador = 1;
-			
+		while(true) {			
 			System.out.println("1 - Estacionar" +
 					"\n2 - Retirar" +
 					"\n3 - Mostrar vagas livres" + 
@@ -36,6 +30,8 @@ public class Principal {
 			} else {
 				Menu.escolherOpcaoMenu(op, vagas);
 			}
+			
+			System.out.println("=======================================\n");
 		}
 		
 	}

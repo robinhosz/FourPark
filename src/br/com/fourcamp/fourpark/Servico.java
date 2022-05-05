@@ -16,23 +16,36 @@ public interface Servico {
 	}
 
 	static void mostrarVagasLivres(Vaga[] vagas) {
+		boolean imprimiu = false;
 
 		for (int i = 0; i < vagas.length; i++) {
 			if (!vagas[i].getOcupado()) {
 				System.out.println("A vaga " + vagas[i].getPosicao() + " está livre");
+				imprimiu = true;
 			} 
+		}
+		
+		if (!imprimiu) {
+			System.out.println("Não há nenhuma vaga livre!");
 		}
 		
 		System.out.println("");
 	}
 
 	static void mostrarVagasOcupadas(Vaga[] vagas) {
+		boolean imprimiu = false;
 
 		for (int i = 0; i < vagas.length; i++) {
 			if (vagas[i].getOcupado()) {
 				System.out.println("A vaga " + vagas[i].getPosicao() + " está ocupada pelo " + vagas[i].getVeiculo());
+				imprimiu = true;
 			}
 		}
+		
+		if (!imprimiu) {
+			System.out.println("Não há nenhuma vaga ocupada!");
+		}
+		
 		System.out.println("");
 	}
 
