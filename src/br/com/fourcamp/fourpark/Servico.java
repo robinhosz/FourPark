@@ -1,7 +1,71 @@
 package br.com.fourcamp.fourpark;
 
-public interface Servico {
+import java.util.Scanner;
 
+public interface Servico {
+	
+	public static void apresentaMenu(Vaga[] vagas, Scanner sc) {
+		while(true) {			
+			System.out.println("1 - Estacionar" +
+					"\n2 - Retirar" +
+					"\n3 - Mostrar vagas livres" + 
+					"\n4 - Mostrar vagas ocupadas" + 
+					"\n5 - Buscar veículo" + 
+					"\n6 - Sair" +
+					"\n");
+			
+			System.out.print("Digite a opção desejada >>> ");
+			int op = sc.nextInt();
+			System.out.println();
+			if (op == 6) {
+				sc.close();
+				break;
+			} else {
+				escolherOpcaoMenu(op, vagas, sc);
+			}
+			System.out.println("=======================================\n");
+		}
+	}
+
+	public static void escolherOpcaoMenu(int valorMenu, Vaga[] vagas, Scanner sc) {
+		switch (valorMenu) {
+			case 1 -> { 
+				Veiculo veiculo = new Veiculo();
+				veiculo.cadastraVeiculo();
+				System.out.print("Digite o horário de entrada: ");
+				String hora = sc.next();
+				Servico.estacionar(veiculo, vagas, hora);
+			}
+			case 2 -> {
+				System.out.print("Digite a placa do veiculo >>> ");
+				String placa = sc.next();
+				
+				Integer posicao = Servico.buscaCarro(placa, vagas);
+				if (posicao == 51) {
+					System.out.println("\nCarro não encontrado\n");
+					return;
+				} else {
+					System.out.print("Digite a hora >> ");
+					String hora = sc.next();
+					Servico.retirar(posicao, vagas, hora);	
+				}
+			}
+			case 3 -> Servico.mostrarVagasLivres(vagas);
+			case 4 -> Servico.mostrarVagasOcupadas(vagas);
+			case 5 -> {
+				System.out.print("Digite a placa >> ");
+				String placa = sc.next();
+				Integer posicao = Servico.buscaCarro(placa, vagas);
+				if (posicao != 51) {
+					System.out.println("\nCarro da placa: " + placa + ", está na vaga: " + (posicao + 1) + "\n");
+				} else {
+					System.out.println("\nEste carro não foi encontrado.\n");
+				} 
+			}
+				default -> System.err.println("OPÇÃO INVÁLIDA TENTE NOVAMENTE\n");
+			} 
+	}
+	
 	static Vaga[] criarEstacionamento() {
 		Vaga[] vagas = new Vaga[50];
 
@@ -10,9 +74,7 @@ public interface Servico {
 			Vaga vaga = new Vaga(x);
 			vagas[x - 1] = vaga;
 		}
-
 		return vagas;
-
 	}
 
 	static void mostrarVagasLivres(Vaga[] vagas) {
@@ -24,11 +86,9 @@ public interface Servico {
 				imprimiu = true;
 			} 
 		}
-		
 		if (!imprimiu) {
 			System.out.println("Não há nenhuma vaga livre!");
-		}
-		
+		}		
 		System.out.println("");
 	}
 
@@ -43,7 +103,7 @@ public interface Servico {
 		}
 		
 		if (!imprimiu) {
-			System.out.println("Não há nenhuma vaga ocupada!");
+				System.out.println("Não há nenhuma vaga ocupada!");
 		}
 		
 		System.out.println("");
@@ -78,7 +138,6 @@ public interface Servico {
 					posicao = x;
 				}
 			}
-
 		}
 		return posicao;
 	}
@@ -88,8 +147,6 @@ public interface Servico {
 		System.out.println("\n" + vagas[posicao].getVeiculo() + ", foi retirado da vaga " + (posicao + 1) + " às " + horaSaida + "\n");
 		vagas[posicao].setOcupado(false);
 		vagas[posicao].setVeiculo(null);
-		
-		
 	}
 
 	
