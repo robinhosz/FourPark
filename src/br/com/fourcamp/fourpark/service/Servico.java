@@ -1,27 +1,34 @@
-package br.com.fourcamp.fourpark;
+package br.com.fourcamp.fourpark.service;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import br.com.fourcamp.fourpark.model.Vaga;
+import br.com.fourcamp.fourpark.model.Veiculo;
+
 public interface Servico {
-	
+
 	public static void apresentaMenu(Vaga[] vagas, Scanner sc) {
-		while(true) {			
-			System.out.println("1 - Estacionar" +
-					"\n2 - Retirar" +
-					"\n3 - Mostrar vagas livres" + 
-					"\n4 - Mostrar vagas ocupadas" + 
-					"\n5 - Buscar veículo" + 
-					"\n6 - Sair" +
-					"\n");
-			
+
+		while (true) {
+			System.out.println("1 - Estacionar" + "\n2 - Retirar" + "\n3 - Mostrar vagas livres"
+					+ "\n4 - Mostrar vagas ocupadas" + "\n5 - Buscar veículo" + "\n6 - Sair" + "\n");
+
 			System.out.print("Digite a opção desejada >>> ");
-			int op = sc.nextInt();
-			System.out.println();
-			if (op == 6) {
-				sc.close();
-				break;
-			} else {
-				escolherOpcaoMenu(op, vagas, sc);
+			int op = 0;
+			try {
+				op = sc.nextInt();
+
+				System.out.println();
+				if (op == 6) {
+					sc.close();
+					break;
+				} else {
+					escolherOpcaoMenu(op, vagas, sc);
+				}
+			} catch (InputMismatchException e) {
+				System.err.println("\n Digite apenas números inteiros! \n");
+				sc.next();
 			}
 			System.out.println("=======================================\n");
 		}
@@ -29,43 +36,43 @@ public interface Servico {
 
 	public static void escolherOpcaoMenu(int valorMenu, Vaga[] vagas, Scanner sc) {
 		switch (valorMenu) {
-			case 1 -> { 
-				Veiculo veiculo = new Veiculo();
-				veiculo.cadastraVeiculo();
-				System.out.print("Digite o horário de entrada: ");
+		case 1 -> {
+			Veiculo veiculo = new Veiculo();
+			veiculo.cadastraVeiculo();
+			System.out.print("Digite o horário de entrada: ");
+			String hora = sc.next();
+			Servico.estacionar(veiculo, vagas, hora);
+		}
+		case 2 -> {
+			System.out.print("Digite a placa do veiculo >>> ");
+			String placa = sc.next();
+
+			Integer posicao = Servico.buscaCarro(placa, vagas);
+			if (posicao == 51) {
+				System.err.println("\nCarro não encontrado\n");
+				return;
+			} else {
+				System.out.print("Digite a hora >> ");
 				String hora = sc.next();
-				Servico.estacionar(veiculo, vagas, hora);
+				Servico.retirar(posicao, vagas, hora);
 			}
-			case 2 -> {
-				System.out.print("Digite a placa do veiculo >>> ");
-				String placa = sc.next();
-				
-				Integer posicao = Servico.buscaCarro(placa, vagas);
-				if (posicao == 51) {
-					System.out.println("\nCarro não encontrado\n");
-					return;
-				} else {
-					System.out.print("Digite a hora >> ");
-					String hora = sc.next();
-					Servico.retirar(posicao, vagas, hora);	
-				}
+		}
+		case 3 -> Servico.mostrarVagasLivres(vagas);
+		case 4 -> Servico.mostrarVagasOcupadas(vagas);
+		case 5 -> {
+			System.out.print("Digite a placa >> ");
+			String placa = sc.next();
+			Integer posicao = Servico.buscaCarro(placa, vagas);
+			if (posicao != 51) {
+				System.out.println("\nCarro da placa: " + placa + ", está na vaga: " + (posicao + 1) + "\n");
+			} else {
+				System.err.println("\nEste carro não foi encontrado.\n");
 			}
-			case 3 -> Servico.mostrarVagasLivres(vagas);
-			case 4 -> Servico.mostrarVagasOcupadas(vagas);
-			case 5 -> {
-				System.out.print("Digite a placa >> ");
-				String placa = sc.next();
-				Integer posicao = Servico.buscaCarro(placa, vagas);
-				if (posicao != 51) {
-					System.out.println("\nCarro da placa: " + placa + ", está na vaga: " + (posicao + 1) + "\n");
-				} else {
-					System.out.println("\nEste carro não foi encontrado.\n");
-				} 
-			}
-				default -> System.err.println("OPÇÃO INVÁLIDA TENTE NOVAMENTE\n");
-			} 
+		}
+		default -> System.err.println("OPÇÃO INVÁLIDA TENTE NOVAMENTE\n");
+		}
 	}
-	
+
 	static Vaga[] criarEstacionamento() {
 		Vaga[] vagas = new Vaga[50];
 
@@ -84,11 +91,11 @@ public interface Servico {
 			if (!vagas[i].getOcupado()) {
 				System.out.println("A vaga " + vagas[i].getPosicao() + " está livre");
 				imprimiu = true;
-			} 
+			}
 		}
 		if (!imprimiu) {
-			System.out.println("Não há nenhuma vaga livre!");
-		}		
+			System.err.println("Não há nenhuma vaga livre!");
+		}
 		System.out.println("");
 	}
 
@@ -101,11 +108,11 @@ public interface Servico {
 				imprimiu = true;
 			}
 		}
-		
+
 		if (!imprimiu) {
-				System.out.println("Não há nenhuma vaga ocupada!");
+			System.out.println("Não há nenhuma vaga ocupada!");
 		}
-		
+
 		System.out.println("");
 	}
 
@@ -122,7 +129,7 @@ public interface Servico {
 				System.out.println("\nEstacionado com sucesso ás " + hora + "\n");
 				break;
 			} else if (x == 49) {
-				System.out.println("\nNão há vagas disponíveis\n");
+				System.err.println("\nNão há vagas disponíveis\n");
 				break;
 			}
 		}
@@ -144,11 +151,10 @@ public interface Servico {
 
 	static void retirar(Integer posicao, Vaga[] vagas, String horaSaida) {
 		vagas[posicao].setHoraSaida(horaSaida);
-		System.out.println("\n" + vagas[posicao].getVeiculo() + ", foi retirado da vaga " + (posicao + 1) + " às " + horaSaida + "\n");
+		System.out.println("\n" + vagas[posicao].getVeiculo() + ", foi retirado da vaga " + (posicao + 1) + " às "
+				+ horaSaida + "\n");
 		vagas[posicao].setOcupado(false);
 		vagas[posicao].setVeiculo(null);
 	}
 
-	
 }
-

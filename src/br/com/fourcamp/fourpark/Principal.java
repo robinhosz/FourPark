@@ -2,6 +2,9 @@ package br.com.fourcamp.fourpark;
 
 import java.util.Scanner;
 
+import br.com.fourcamp.fourpark.model.Vaga;
+import br.com.fourcamp.fourpark.service.Servico;
+
 public class Principal {
 	
 	public static void main(String[] args)  {

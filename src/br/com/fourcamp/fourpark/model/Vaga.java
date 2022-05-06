@@ -1,4 +1,4 @@
-package br.com.fourcamp.fourpark;
+package br.com.fourcamp.fourpark.model;
 
 public class Vaga {
 	

@@ -1,4 +1,4 @@
-package br.com.fourcamp.fourpark;
+package br.com.fourcamp.fourpark.model;
 
 import java.util.Scanner;
 
