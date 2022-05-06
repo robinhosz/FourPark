@@ -58,6 +58,4 @@ public class Vaga {
 		this.ocupado = ocupado;
 	}
 	
-	
-	
 }
