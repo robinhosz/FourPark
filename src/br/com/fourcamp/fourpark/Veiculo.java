@@ -20,6 +20,7 @@ public class Veiculo {
 	public void cadastraVeiculo(Scanner sc) {
 		
 		System.out.print("Digite o modelo do veículo: ");
+		sc.nextLine();
 		modelo = sc.nextLine();
 		
 		System.out.print("Digite a placa do veículo: ");
