@@ -38,7 +38,7 @@ public interface Servico {
 		switch (valorMenu) {
 		case 1 -> {
 			Veiculo veiculo = new Veiculo();
-			veiculo.cadastraVeiculo(sc);
+			cadastraVeiculo(sc, veiculo);
 			System.out.print("Digite o horário de entrada: ");
 			String hora = sc.next();
 			Servico.estacionar(veiculo, vagas, hora);
@@ -82,6 +82,22 @@ public interface Servico {
 			vagas[x - 1] = vaga;
 		}
 		return vagas;
+	}
+	
+	public static void cadastraVeiculo(Scanner sc, Veiculo veiculo) {
+			
+			System.out.print("Digite o modelo do veículo: ");
+			veiculo.setModelo(sc.next()); 
+			
+			System.out.print("Digite a placa do veículo: ");
+			veiculo.setPlaca(sc.next());
+			
+			System.out.print("Digite o nome do proprietário: ");
+			veiculo.setProprietario(sc.next());
+			
+			System.out.print("Digite o documento do proprietário: ");
+			veiculo.setDocumento(sc.next());
+		
 	}
 
 	static void mostrarVagasLivres(Vaga[] vagas) {
@@ -153,8 +169,26 @@ public interface Servico {
 		vagas[posicao].setHoraSaida(horaSaida);
 		System.out.println("\n" + vagas[posicao].getVeiculo() + ", foi retirado da vaga " + (posicao + 1) + " às "
 				+ horaSaida + "\n");
+//		calcularValorHora(vagas[posicao]);
 		vagas[posicao].setOcupado(false);
 		vagas[posicao].setVeiculo(null);
 	}
+	
+//	ver se horas vai ser String ou Double
 
+	/*
+	 * static Double calcularValorHora(Vaga vaga) { 
+	 * Double entrada = converteHoras(vagas[posicao].getHoraEntrada()); 
+	 * Double saida = converteHoras(vagas[posicao].getHoraSaida()); 
+	 * return saida - entrada; }
+	 */
+	
+	/*
+	 * static Double converteHoras(Double horario) { 
+	 * Double taxa = ?;
+	 * Double horas = horario / 100;
+	 * Double minutos = (horario % 100) / 60; 
+	 * return (horas + minutos;
+	 *  }
+	 */
 }

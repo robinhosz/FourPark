@@ -1,7 +1,5 @@
 package br.com.fourcamp.fourpark.model;
 
-import java.util.Scanner;
-
 public class Veiculo {
 
 	private String modelo;
@@ -17,22 +15,21 @@ public class Veiculo {
 		return placa;
 	}
 
-	public void cadastraVeiculo(Scanner sc) {
-		
-		System.out.print("Digite o modelo do veículo: ");
-		sc.nextLine();
-		modelo = sc.nextLine();
-		
-		System.out.print("Digite a placa do veículo: ");
-		placa = sc.next();
-		
-		System.out.print("Digite o nome do proprietário: ");
-		sc.nextLine();
-		proprietario = sc.nextLine();
-		
-		System.out.print("Digite o documento do proprietário: ");
-		documento = sc.next();
-		
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
+
+	public void setProprietario(String proprietario) {
+		this.proprietario = proprietario;
+	}
+
+	public void setDocumento(String documento) {
+		this.documento = documento;
 	}
 
 	@Override
