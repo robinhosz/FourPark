@@ -31,7 +31,7 @@ public interface Servico {
 		switch (valorMenu) {
 			case 1 -> { 
 				Veiculo veiculo = new Veiculo();
-				veiculo.cadastraVeiculo();
+				veiculo.cadastraVeiculo(sc);
 				System.out.print("Digite o horário de entrada: ");
 				String hora = sc.next();
 				Servico.estacionar(veiculo, vagas, hora);

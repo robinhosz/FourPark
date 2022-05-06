@@ -12,25 +12,12 @@ public class Veiculo {
 	public Veiculo() {
 		
 	}
-
-	public String getProprietario() {
-		return proprietario;
-	}
-
-	public String getModelo() {
-		return modelo;
-	}
-
+	
 	public String getPlaca() {
 		return placa;
 	}
-	
-	public String getDocumento() {
-		return documento;
-	}
-	
-	public void cadastraVeiculo() {
-		Scanner sc = new Scanner(System.in);
+
+	public void cadastraVeiculo(Scanner sc) {
 		
 		System.out.print("Digite o modelo do veículo: ");
 		modelo = sc.nextLine();
