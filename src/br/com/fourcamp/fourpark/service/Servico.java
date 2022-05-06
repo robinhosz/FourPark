@@ -36,10 +36,9 @@ public interface Servico {
 
 	public static void escolherOpcaoMenu(int valorMenu, Vaga[] vagas, Scanner sc) {
 		switch (valorMenu) {
-<<<<<<< HEAD:src/br/com/fourcamp/fourpark/service/Servico.java
 		case 1 -> {
 			Veiculo veiculo = new Veiculo();
-			veiculo.cadastraVeiculo();
+			veiculo.cadastraVeiculo(sc);
 			System.out.print("Digite o horário de entrada: ");
 			String hora = sc.next();
 			Servico.estacionar(veiculo, vagas, hora);
@@ -54,12 +53,6 @@ public interface Servico {
 				return;
 			} else {
 				System.out.print("Digite a hora >> ");
-=======
-			case 1 -> { 
-				Veiculo veiculo = new Veiculo();
-				veiculo.cadastraVeiculo(sc);
-				System.out.print("Digite o horário de entrada: ");
->>>>>>> 071571775d66b6272336bde55aa9fa93d0fb3228:src/br/com/fourcamp/fourpark/Servico.java
 				String hora = sc.next();
 				Servico.retirar(posicao, vagas, hora);
 			}
