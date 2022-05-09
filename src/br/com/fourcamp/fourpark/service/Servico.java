@@ -16,8 +16,8 @@ public interface Servico {
 
 		while (true) {
 			System.out.println("1 - Estacionar" + "\n2 - Retirar" + "\n3 - Mostrar vagas livres"
-					+ "\n4 - Mostrar vagas ocupadas" + "\n5 - Buscar veículo" + 
-					"\n6 - Mostrar registro" + "\n7 - Mostrar valor do dia" + "\n8 - Sair" + "\n");
+					+ "\n4 - Mostrar vagas ocupadas" + "\n5 - Buscar veículo" + "\n6 - Mostrar registro"
+					+ "\n7 - Mostrar valor do dia" + "\n8 - Sair" + "\n");
 
 			System.out.print("Digite a opção desejada >>> ");
 			int op = 0;
@@ -25,6 +25,7 @@ public interface Servico {
 				op = sc.nextInt();
 				System.out.println();
 				if (op == 8) {
+					System.out.println("Obrigado por usar o sistema FourPark! Até breve.");
 					sc.close();
 					break;
 				} else {
@@ -175,24 +176,24 @@ public interface Servico {
 		System.out.println("\n" + vagas[posicao].getVeiculo() + ", foi retirado da vaga " + (posicao + 1) + " às "
 				+ horaSaida + "\n");
 		Double valorHora = calcularValorHora(vagas[posicao]);
-		System.out.print("O valor foi de R$"); 
-		System.out.printf( "%.2f\n\n", valorHora);
+		System.out.print("O valor foi de R$");
+		System.out.printf("%.2f\n\n", valorHora);
 		atualizaRegistro(registros, vagas[posicao], valorHora);
 		vagas[posicao].setOcupado(false);
 		vagas[posicao].setVeiculo(null);
 	}
 
-	static Double calcularValorHora(Vaga vaga) { 
-		  LocalTime inicio = LocalTime.parse(vaga.getHoraEntrada());
-		  LocalTime fim = LocalTime.parse(vaga.getHoraSaida()); 
-		  Double taxa = 10.0; 
-		  int diffMinutes = (int) ChronoUnit.MINUTES.between(inicio, fim); 
-		  int horas = diffMinutes / 60; 
-		  int minutos = diffMinutes % 60; 
-		  Double resultado = (horas + (minutos * 0.017)) * taxa;
-		  return resultado;
-	  }
-	
+	static Double calcularValorHora(Vaga vaga) {
+		LocalTime inicio = LocalTime.parse(vaga.getHoraEntrada());
+		LocalTime fim = LocalTime.parse(vaga.getHoraSaida());
+		Double taxa = 10.0;
+		int diffMinutes = (int) ChronoUnit.MINUTES.between(inicio, fim);
+		int horas = diffMinutes / 60;
+		int minutos = diffMinutes % 60;
+		Double resultado = (horas + (minutos * 0.017)) * taxa;
+		return resultado;
+	}
+
 	static void atualizaRegistro(List<Registro> registros, Vaga vaga, Double valorHora) {
 		Registro registro = new Registro();
 		registro.setVeiculo(vaga.getVeiculo());
@@ -203,21 +204,24 @@ public interface Servico {
 		registro.setVaga(vaga.getPosicao());
 		registros.add(registro);
 	}
-	
+
 	static void retornaRegistros(List<Registro> registros) {
 		for (Registro registro : registros) {
 			System.out.println(registro);
 		}
-		System.out.println("");
+		if (registros.isEmpty()) {
+			System.err.println("A lista de registros está vazia \n");
+		}
+
 	}
-	
+
 	static void retornaValorDoDia(List<Registro> registros) {
 		Double valorTotal = 0.0;
 		for (Registro registro : registros) {
 			valorTotal += registro.getValor();
 		}
-		System.out.print("O valor total do dia é de R$"); 
-		System.out.printf( "%.2f\n\n", valorTotal);
-		
+		System.out.print("O valor total do dia é de R$");
+		System.out.printf("%.2f\n\n", valorTotal);
+
 	}
 }
