@@ -1,24 +1,30 @@
-<h2 align="center">FourPark! 🚘</h2>
+<h2 align="center">FourPark em construção...  🚧</h2>
 
 <p align="center">
  <a href="#-sobre-o-projeto">Sobre</a> •
- <a href="#-requisitos">Pré requisitos</a> • 
- <a href="Execução">Execução</a> • 
- <a href="#-tecnologias">Tecnologias</a> • 
+ <a href="#features">Features</a> •  
+ <a href="#contribuicao">Contribuição</a> • 
 </p>
 
+
 ## 🔎 Sobre o projeto
-**Projeto prático para o curso de Java do FourCamp onde será criado um estacionamento que terá 50 vagas disponíveis.**
-A interface serviço fará o registro das vagas, e da entrada e saída e de veículos com seus respectivos horários.
-A Classe principal irá receber do usuário as informações do veículo e executar os métodos importados de serviço
-## Projeto prático para o curso de Java do FourCamp
+#### Projeto prático para o curso de Java do FourCamp onde será criado um estacionamento que terá 50 vagas disponíveis. A interface serviço fará o registro das vagas, e da entrada e saída e de veículos com seus respectivos horários. A Classe principal irá receber do usuário as informações do veículo e executar os métodos importados de serviço!
+![FourPark](https://user-images.githubusercontent.com/82779533/167324956-a0a7a06b-1191-4ca1-b3fd-fe1de37413ab.png)
+<br><br>
 
+## ✅ Features
 
-### Será criado um estacionamento com 50 vagas
-### A interface serviço fará o registro das vagas, e da entrada e saída e de veículos com seus respectivos horários.
-### A Classe principal irá receber do usuário as informações do veículo e executar os métodos importados de serviço
+- [x] Registro de vagas disponíveis e ocupadas.
+- [x] Dados dos veículos nas vagas.
+- [x] Listar vagas disponíveis e ocupadas.
+- [x] Coleta de horário de entrada e horário de saída.
+- [ ] Calcular o valor a pagar de cada veículo.
+- [ ] Histórico de todos os veículos que passaram pelo estacionamento.
+- [ ] Calcular valor recebido durante o dia todo.
 
-## ✅ Contribuição
+<br>
+
+## 🔥 Team 4
 <table>
   
   <tr>
