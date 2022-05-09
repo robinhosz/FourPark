@@ -174,6 +174,8 @@ public interface Servico {
 		System.out.println("\n" + vagas[posicao].getVeiculo() + ", foi retirado da vaga " + (posicao + 1) + " às "
 				+ horaSaida + "\n");
 		Double valorHora = calcularValorHora(vagas[posicao]);
+		System.out.print("O valor foi de R$"); 
+		System.out.printf( "%.2f\n\n", valorHora);
 		atualizaRegistro(registros, vagas[posicao], valorHora);
 		vagas[posicao].setOcupado(false);
 		vagas[posicao].setVeiculo(null);
@@ -211,7 +213,8 @@ public interface Servico {
 		for (Registro registro : registros) {
 			valorTotal += registro.getValor();
 		}
-		System.out.print("O valor total do dia é de R$"); System.out.printf( "%.2f\n\n", valorTotal);
+		System.out.print("O valor total do dia é de R$"); 
+		System.out.printf( "%.2f\n\n", valorTotal);
 		
 	}
 }
