@@ -91,16 +91,17 @@ public interface Servico {
 	public static void cadastraVeiculo(Scanner sc, Veiculo veiculo) {
 
 		System.out.print("Digite o modelo do veículo: ");
-		veiculo.setModelo(sc.next());
+		sc.nextLine();
+		veiculo.setModelo(sc.nextLine());
 
 		System.out.print("Digite a placa do veículo: ");
-		veiculo.setPlaca(sc.next());
+		veiculo.setPlaca(sc.nextLine());
 
 		System.out.print("Digite o nome do proprietário: ");
-		veiculo.setProprietario(sc.next());
+		veiculo.setProprietario(sc.nextLine());
 
 		System.out.print("Digite o documento do proprietário: ");
-		veiculo.setDocumento(sc.next());
+		veiculo.setDocumento(sc.nextLine());
 
 	}
 
@@ -199,6 +200,7 @@ public interface Servico {
 		registro.setHoraDeSaida(vaga.getHoraSaida());
 		registro.setValor(valorHora);
 		registro.setResgistro(registros.size() + 1);
+		registro.setVaga(vaga.getPosicao());
 		registros.add(registro);
 	}
 	
@@ -206,6 +208,7 @@ public interface Servico {
 		for (Registro registro : registros) {
 			System.out.println(registro);
 		}
+		System.out.println("");
 	}
 	
 	static void retornaValorDoDia(List<Registro> registros) {

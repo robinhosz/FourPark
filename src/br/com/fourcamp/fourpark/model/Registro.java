@@ -7,6 +7,7 @@ public class Registro {
 	private String horaDeEntrada;
 	private String horaDeSaida;
 	private Double valor;
+	private Integer vaga;
 	
 	public int getResgistro() {
 		return resgistro;
@@ -39,10 +40,18 @@ public class Registro {
 	public Double getValor() {
 		return valor;
 	}
+	public Integer getVaga() {
+		return vaga;
+	}
+	public void setVaga(Integer vaga) {
+		this.vaga = vaga;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Registro número " + resgistro + ": veículo com a placa " + veiculo.getPlaca() + " foi estacionado às " + horaDeEntrada +
-				" e removido às " + horaDeSaida;
+				", na vaga " + vaga + " e removido às " + horaDeSaida;
 	}
 	
 }
