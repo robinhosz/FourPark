@@ -3,29 +3,32 @@ package br.com.fourcamp.fourpark.service;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
+import br.com.fourcamp.fourpark.model.Registro;
 import br.com.fourcamp.fourpark.model.Vaga;
 import br.com.fourcamp.fourpark.model.Veiculo;
 
 public interface Servico {
 
-	public static void apresentaMenu(Vaga[] vagas, Scanner sc) {
+	public static void apresentaMenu(Vaga[] vagas, Scanner sc, List<Registro> registros) {
 
 		while (true) {
 			System.out.println("1 - Estacionar" + "\n2 - Retirar" + "\n3 - Mostrar vagas livres"
-					+ "\n4 - Mostrar vagas ocupadas" + "\n5 - Buscar veículo" + "\n6 - Sair" + "\n");
+					+ "\n4 - Mostrar vagas ocupadas" + "\n5 - Buscar veículo" + 
+					"\n6 - Mostrar registro" + "\n7 - Mostrar valor do dia" + "\n8 - Sair" + "\n");
 
 			System.out.print("Digite a opção desejada >>> ");
 			int op = 0;
 			try {
 				op = sc.nextInt();
 				System.out.println();
-				if (op == 6) {
+				if (op == 8) {
 					sc.close();
 					break;
 				} else {
-					escolherOpcaoMenu(op, vagas, sc);
+					escolherOpcaoMenu(op, vagas, sc, registros);
 				}
 			} catch (InputMismatchException e) {
 				System.err.println("\n Digite apenas números inteiros! \n");
@@ -35,7 +38,7 @@ public interface Servico {
 		}
 	}
 
-	public static void escolherOpcaoMenu(int valorMenu, Vaga[] vagas, Scanner sc) {
+	public static void escolherOpcaoMenu(int valorMenu, Vaga[] vagas, Scanner sc, List<Registro> registros) {
 		switch (valorMenu) {
 		case 1 -> {
 			Veiculo veiculo = new Veiculo();
@@ -55,7 +58,7 @@ public interface Servico {
 			} else {
 				System.out.print("Digite a hora >> ");
 				String hora = sc.next();
-				Servico.retirar(posicao, vagas, hora);
+				Servico.retirar(posicao, vagas, hora, registros);
 			}
 		}
 		case 3 -> Servico.mostrarVagasLivres(vagas);
@@ -70,6 +73,8 @@ public interface Servico {
 				System.err.println("\nEste carro não foi encontrado.\n");
 			}
 		}
+		case 6 -> retornaRegistros(registros);
+		case 7 -> retornaValorDoDia(registros);
 		default -> System.err.println("OPÇÃO INVÁLIDA TENTE NOVAMENTE\n");
 		}
 	}
@@ -164,16 +169,17 @@ public interface Servico {
 		return posicao;
 	}
 
-	public static void retirar(Integer posicao, Vaga[] vagas, String horaSaida) {
+	public static void retirar(Integer posicao, Vaga[] vagas, String horaSaida, List<Registro> registros) {
 		vagas[posicao].setHoraSaida(horaSaida);
 		System.out.println("\n" + vagas[posicao].getVeiculo() + ", foi retirado da vaga " + (posicao + 1) + " às "
 				+ horaSaida + "\n");
-		calcularValorHora(vagas[posicao]);
+		Double valorHora = calcularValorHora(vagas[posicao]);
+		atualizaRegistro(registros, vagas[posicao], valorHora);
 		vagas[posicao].setOcupado(false);
 		vagas[posicao].setVeiculo(null);
 	}
 
-	static void calcularValorHora(Vaga vaga) { 
+	static Double calcularValorHora(Vaga vaga) { 
 		  LocalTime inicio = LocalTime.parse(vaga.getHoraEntrada());
 		  LocalTime fim = LocalTime.parse(vaga.getHoraSaida()); 
 		  Double taxa = 10.0; 
@@ -181,7 +187,31 @@ public interface Servico {
 		  int horas = diffMinutes / 60; 
 		  int minutos = diffMinutes % 60; 
 		  Double resultado = (horas + (minutos * 0.017)) * taxa;
-		  System.out.print("O valor a pagar é de R$");
-		  System.out.printf( "%.2f\n\n", resultado);
+		  return resultado;
 	  }
+	
+	static void atualizaRegistro(List<Registro> registros, Vaga vaga, Double valorHora) {
+		Registro registro = new Registro();
+		registro.setVeiculo(vaga.getVeiculo());
+		registro.setHoraDeEntrada(vaga.getHoraEntrada());
+		registro.setHoraDeSaida(vaga.getHoraSaida());
+		registro.setValor(valorHora);
+		registro.setResgistro(registros.size() + 1);
+		registros.add(registro);
+	}
+	
+	static void retornaRegistros(List<Registro> registros) {
+		for (Registro registro : registros) {
+			System.out.println(registro);
+		}
+	}
+	
+	static void retornaValorDoDia(List<Registro> registros) {
+		Double valorTotal = 0.0;
+		for (Registro registro : registros) {
+			valorTotal += registro.getValor();
+		}
+		System.out.print("O valor total do dia é de R$"); System.out.printf( "%.2f\n\n", valorTotal);
+		
+	}
 }

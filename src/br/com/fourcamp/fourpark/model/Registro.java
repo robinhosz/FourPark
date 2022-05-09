@@ -7,6 +7,22 @@ public class Registro {
 	private String horaDeEntrada;
 	private String horaDeSaida;
 	private Double valor;
+	
+	public int getResgistro() {
+		return resgistro;
+	}
+	public void setResgistro(int resgistro) {
+		this.resgistro = resgistro;
+	}
+	public Veiculo getVeiculo() {
+		return veiculo;
+	}
+	public String getHoraDeEntrada() {
+		return horaDeEntrada;
+	}
+	public String getHoraDeSaida() {
+		return horaDeSaida;
+	}
 	public void setVeiculo(Veiculo veiculo) {
 		this.veiculo = veiculo;
 	}
@@ -25,7 +41,7 @@ public class Registro {
 	}
 	@Override
 	public String toString() {
-		return "Registro número " + resgistro + ": veículo com a placa " + veiculo.getPlaca() + " estacionado às " + horaDeEntrada +
+		return "Registro número " + resgistro + ": veículo com a placa " + veiculo.getPlaca() + " foi estacionado às " + horaDeEntrada +
 				" e removido às " + horaDeSaida;
 	}
 	
