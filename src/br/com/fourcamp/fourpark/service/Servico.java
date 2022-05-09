@@ -1,5 +1,7 @@
 package br.com.fourcamp.fourpark.service;
 
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -18,7 +20,6 @@ public interface Servico {
 			int op = 0;
 			try {
 				op = sc.nextInt();
-
 				System.out.println();
 				if (op == 6) {
 					sc.close();
@@ -73,34 +74,32 @@ public interface Servico {
 		}
 	}
 
-	static Vaga[] criarEstacionamento() {
+	public static Vaga[] criarEstacionamento() {
 		Vaga[] vagas = new Vaga[50];
-
 		for (int x = 1; x <= 50; x++) {
-
 			Vaga vaga = new Vaga(x);
 			vagas[x - 1] = vaga;
 		}
 		return vagas;
 	}
-	
+
 	public static void cadastraVeiculo(Scanner sc, Veiculo veiculo) {
-			
-			System.out.print("Digite o modelo do veículo: ");
-			veiculo.setModelo(sc.next()); 
-			
-			System.out.print("Digite a placa do veículo: ");
-			veiculo.setPlaca(sc.next());
-			
-			System.out.print("Digite o nome do proprietário: ");
-			veiculo.setProprietario(sc.next());
-			
-			System.out.print("Digite o documento do proprietário: ");
-			veiculo.setDocumento(sc.next());
-		
+
+		System.out.print("Digite o modelo do veículo: ");
+		veiculo.setModelo(sc.next());
+
+		System.out.print("Digite a placa do veículo: ");
+		veiculo.setPlaca(sc.next());
+
+		System.out.print("Digite o nome do proprietário: ");
+		veiculo.setProprietario(sc.next());
+
+		System.out.print("Digite o documento do proprietário: ");
+		veiculo.setDocumento(sc.next());
+
 	}
 
-	static void mostrarVagasLivres(Vaga[] vagas) {
+	public static void mostrarVagasLivres(Vaga[] vagas) {
 		boolean imprimiu = false;
 
 		for (int i = 0; i < vagas.length; i++) {
@@ -115,7 +114,7 @@ public interface Servico {
 		System.out.println("");
 	}
 
-	static void mostrarVagasOcupadas(Vaga[] vagas) {
+	public static void mostrarVagasOcupadas(Vaga[] vagas) {
 		boolean imprimiu = false;
 
 		for (int i = 0; i < vagas.length; i++) {
@@ -132,7 +131,7 @@ public interface Servico {
 		System.out.println("");
 	}
 
-	static void estacionar(Veiculo veiculo, Vaga[] vagas, String hora) {
+	public static void estacionar(Veiculo veiculo, Vaga[] vagas, String hora) {
 		if (buscaCarro(veiculo.getPlaca(), vagas) != 51) {
 			System.out.println("\nEste carro já está no estacionamento\n");
 			return;
@@ -165,30 +164,24 @@ public interface Servico {
 		return posicao;
 	}
 
-	static void retirar(Integer posicao, Vaga[] vagas, String horaSaida) {
+	public static void retirar(Integer posicao, Vaga[] vagas, String horaSaida) {
 		vagas[posicao].setHoraSaida(horaSaida);
 		System.out.println("\n" + vagas[posicao].getVeiculo() + ", foi retirado da vaga " + (posicao + 1) + " às "
 				+ horaSaida + "\n");
-//		calcularValorHora(vagas[posicao]);
+		calcularValorHora(vagas[posicao]);
 		vagas[posicao].setOcupado(false);
 		vagas[posicao].setVeiculo(null);
 	}
-	
-//	ver se horas vai ser String ou Double
 
-	/*
-	 * static Double calcularValorHora(Vaga vaga) { 
-	 * Double entrada = converteHoras(vagas[posicao].getHoraEntrada()); 
-	 * Double saida = converteHoras(vagas[posicao].getHoraSaida()); 
-	 * return saida - entrada; }
-	 */
-	
-	/*
-	 * static Double converteHoras(Double horario) { 
-	 * Double taxa = ?;
-	 * Double horas = horario / 100;
-	 * Double minutos = (horario % 100) / 60; 
-	 * return (horas + minutos;
-	 *  }
-	 */
+	static void calcularValorHora(Vaga vaga) { 
+		  LocalTime inicio = LocalTime.parse(vaga.getHoraEntrada());
+		  LocalTime fim = LocalTime.parse(vaga.getHoraSaida()); 
+		  Double taxa = 10.0; 
+		  int diffMinutes = (int) ChronoUnit.MINUTES.between(inicio, fim); 
+		  int horas = diffMinutes / 60; 
+		  int minutos = diffMinutes % 60; 
+		  Double resultado = (horas + (minutos * 0.017)) * taxa;
+		  System.out.print("O valor a pagar é de R$");
+		  System.out.printf( "%.2f\n\n", resultado);
+	  }
 }
