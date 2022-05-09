@@ -5,6 +5,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import br.com.fourcamp.fourpark.model.Registro;
 import br.com.fourcamp.fourpark.model.Vaga;
@@ -44,8 +46,7 @@ public interface Servico {
 		case 1 -> {
 			Veiculo veiculo = new Veiculo();
 			cadastraVeiculo(sc, veiculo);
-			System.out.print("Digite o horário de entrada: ");
-			String hora = sc.next();
+			String hora = validaHora(sc);
 			Servico.estacionar(veiculo, vagas, hora);
 		}
 		case 2 -> {
@@ -57,10 +58,11 @@ public interface Servico {
 				System.err.println("\nCarro não encontrado\n");
 				return;
 			} else {
-				System.out.print("Digite a hora >> ");
-				String hora = sc.next();
+				String hora = validaHora(sc);
+
 				Servico.retirar(posicao, vagas, hora, registros);
 			}
+
 		}
 		case 3 -> Servico.mostrarVagasLivres(vagas);
 		case 4 -> Servico.mostrarVagasOcupadas(vagas);
@@ -223,5 +225,29 @@ public interface Servico {
 		System.out.print("O valor total do dia é de R$");
 		System.out.printf("%.2f\n\n", valorTotal);
 
+	}
+
+	static String validaHora(Scanner sc) {
+		String regex = "\\b([0-2]{1})([0-9]{1})\\:([0-5]{1})([0-9]{1})";
+		do {
+			System.out.print("Digite o horário: ");
+			String hora = sc.next();
+			String hr[] = hora.split(":");
+			Integer hrs = Integer.parseInt(hr[0]);
+			Pattern padrao = Pattern.compile(regex);
+
+			Matcher match = padrao.matcher(hora);
+			
+
+			if (!match.find() || hora.length() > 5) {
+				System.err.println("\nPor gentileza, Digite a HORA de acordo com o padrão HH:MM! \n");
+			} else if(hrs > 24) {
+				System.err.println("ERRO! Digite um horário menor que 24 horas.");
+			}
+			else {
+				return hora;
+			}
+
+		} while (true);
 	}
 }
