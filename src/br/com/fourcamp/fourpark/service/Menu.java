@@ -54,23 +54,29 @@ public interface Menu {
 			if (posicao == 51) {
 				System.err.println("\nCarro não encontrado\n");
 				return;
-				
+
 			} else {
 				do {
 					String hora = ServicoVagas.validaHora(sc);
 
 					String hr[] = hora.split(":");
 					Integer hrs = Integer.parseInt(hr[0]);
+					Integer mins = Integer.parseInt(hr[1]);
 
 					String horaEntrada = vagas[posicao].getHoraEntrada();
 					String hrEnt[] = horaEntrada.split(":");
 					Integer hrsEnt = Integer.parseInt(hrEnt[0]);
+					Integer minEnt = Integer.parseInt(hrEnt[1]);
 
 					if (hrs < hrsEnt) {
 						System.err.println("\nDigite um horário maior que o horário de entrada!\n");
 					} else {
-						horaValida = true;
-						ServicoVagas.retirar(posicao, vagas, hora, registros);
+						if (hrs == hrsEnt && mins < minEnt) {
+							System.err.println("\nDigite um horário maior que o horário de entrada!\n");
+						} else {
+							horaValida = true;
+							ServicoVagas.retirar(posicao, vagas, hora, registros);
+						}
 					}
 
 				} while (!horaValida);
