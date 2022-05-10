@@ -13,8 +13,6 @@ import br.com.fourcamp.fourpark.model.Veiculo;
 
 public interface ServicoVagas {
 
-	
-
 	public static Vaga[] criarEstacionamento() {
 		Vaga[] vagas = new Vaga[50];
 		for (int x = 1; x <= 50; x++) {
@@ -117,33 +115,35 @@ public interface ServicoVagas {
 		vagas[posicao].setVeiculo(null);
 	}
 
-	
-
 	static String validaHora(Scanner sc) {
 		String regex = "\\b([0-2]{1})([0-9]{1})\\:([0-5]{1})([0-9]{1})";
 		do {
 			System.out.print("Digite o horário: ");
 			String hora = sc.next();
 			String hr[] = hora.split(":");
-			Integer hrs = Integer.parseInt(hr[0]);
-			Pattern padrao = Pattern.compile(regex);
+			try {
+				Integer hrs = Integer.parseInt(hr[0]);
+				
+				Pattern padrao = Pattern.compile(regex);
 
-			Matcher match = padrao.matcher(hora);
-			
-			if (!match.find() || hora.length() > 5) {
-				System.err.println("\nPor gentileza, Digite a HORA de acordo com o padrão HH:MM! \n");
-				 try {
-					Thread.sleep(1L);
-				} catch (InterruptedException e) {
-					System.out.println("Nunca vai cair aqui");
+				Matcher match = padrao.matcher(hora);
+
+				if (!match.find() || hora.length() > 5) {
+					System.err.println("\nPor gentileza, Digite a HORA de acordo com o padrão HH:MM! \n");
+					try {
+						Thread.sleep(1L);
+					} catch (InterruptedException e) {
+						System.out.println("Nunca vai cair aqui");
+					}
+				} else if (hrs >= 24) {
+					System.err.println("\nERRO! Digite um horário menor que 24 horas.\n");
+				} else {
+					return hora;
 				}
-			} else if(hrs >= 24) {
-				System.err.println("\nERRO! Digite um horário menor que 24 horas.\n");
+			} catch (Exception e) {
+				System.err.println("\nPor gentileza, Digite a HORA de acordo com o padrão HH:MM! \n");
 			}
-			else {
-				return hora;
-			}
-
+			
 		} while (true);
 	}
 }

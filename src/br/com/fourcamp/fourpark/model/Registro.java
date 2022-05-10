@@ -1,5 +1,7 @@
 package br.com.fourcamp.fourpark.model;
 
+import java.text.Format;
+
 public class Registro {
 
 	private int resgistro;
@@ -50,8 +52,10 @@ public class Registro {
 	
 	@Override
 	public String toString() {
+		String valorStr = String.format("%.2f\n\n", this.valor);
+		
 		return "Registro número " + resgistro + ": veículo com a placa " + veiculo.getPlaca() + " foi estacionado às " + horaDeEntrada +
-				", na vaga " + vaga + " e removido às " + horaDeSaida;
+				", na vaga " + vaga + " e removido às " + horaDeSaida + ", e pagou R$" + valorStr;
 	}
 	
 }

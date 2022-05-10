@@ -9,7 +9,7 @@ import br.com.fourcamp.fourpark.model.Vaga;
 import br.com.fourcamp.fourpark.model.Veiculo;
 
 public interface Menu {
-	
+
 	public static void apresentaMenu(Vaga[] vagas, Scanner sc, List<Registro> registros) {
 
 		while (true) {
@@ -46,6 +46,7 @@ public interface Menu {
 			ServicoVagas.estacionar(veiculo, vagas, hora);
 		}
 		case 2 -> {
+			boolean horaValida = false;
 			System.out.print("Digite a placa do veiculo >>> ");
 			String placa = sc.next();
 
@@ -53,10 +54,26 @@ public interface Menu {
 			if (posicao == 51) {
 				System.err.println("\nCarro não encontrado\n");
 				return;
+				
 			} else {
-				String hora = ServicoVagas.validaHora(sc);
+				do {
+					String hora = ServicoVagas.validaHora(sc);
 
-				ServicoVagas.retirar(posicao, vagas, hora, registros);
+					String hr[] = hora.split(":");
+					Integer hrs = Integer.parseInt(hr[0]);
+
+					String horaEntrada = vagas[posicao].getHoraEntrada();
+					String hrEnt[] = horaEntrada.split(":");
+					Integer hrsEnt = Integer.parseInt(hrEnt[0]);
+
+					if (hrs < hrsEnt) {
+						System.err.println("\nDigite um horário maior que o horário de entrada!\n");
+					} else {
+						horaValida = true;
+						ServicoVagas.retirar(posicao, vagas, hora, registros);
+					}
+
+				} while (!horaValida);
 			}
 
 		}
