@@ -1,9 +1,7 @@
 package br.com.fourcamp.fourpark.service;
 
-import java.awt.desktop.ScreenSleepEvent;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -130,20 +128,26 @@ public interface ServicoVagas {
 
 				if (!match.find() || hora.length() > 5) {
 					System.err.println("\nPor gentileza, Digite a HORA de acordo com o padrão HH:MM! \n");
-					try {
-						Thread.sleep(1L);
-					} catch (InterruptedException e) {
-						System.out.println("Nunca vai cair aqui");
-					}
+					ThreadDelay();
 				} else if (hrs >= 24) {
 					System.err.println("\nERRO! Digite um horário menor que 24 horas.\n");
+					ThreadDelay();
 				} else {
 					return hora;
 				}
 			} catch (Exception e) {
 				System.err.println("\nPor gentileza, Digite a HORA de acordo com o padrão HH:MM! \n");
+				ThreadDelay();
 			}
 			
 		} while (true);
+	}
+
+	static void ThreadDelay() {
+		try {
+			Thread.sleep(1L);
+		} catch (InterruptedException e) {
+			System.out.println("Nunca vai cair aqui");
+		}
 	}
 }
