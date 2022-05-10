@@ -18,9 +18,9 @@
 - [x] Dados dos veículos nas vagas.
 - [x] Listar vagas disponíveis e ocupadas.
 - [x] Coleta de horário de entrada e horário de saída.
-- [ ] Calcular o valor a pagar de cada veículo.
-- [ ] Histórico de todos os veículos que passaram pelo estacionamento.
-- [ ] Calcular valor recebido durante o dia todo.
+- [x] Calcular o valor a pagar de cada veículo.
+- [x] Histórico de todos os veículos que passaram pelo estacionamento.
+- [x] Calcular valor recebido durante o dia todo.
 
 <br>
 
