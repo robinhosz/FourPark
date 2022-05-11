@@ -39,66 +39,71 @@ public interface Menu {
 
 	public static void escolherOpcaoMenu(int valorMenu, Vaga[] vagas, Scanner sc, List<Registro> registros) {
 		switch (valorMenu) {
-		case 1 -> {
-			Veiculo veiculo = new Veiculo();
-			ServicoVagas.cadastraVeiculo(sc, veiculo);
-			String hora = ServicoVagas.validaHora(sc);
-			System.out.println(ServicoVagas.estacionar(veiculo, vagas, hora));
-		}
-		case 2 -> {
-			boolean horaValida = false;
-			System.out.print("Digite a placa do veiculo >>> ");
-			String placa = sc.next();
-
-			Integer posicao = ServicoVagas.buscaCarro(placa, vagas);
-			if (posicao == 51) {
-				System.err.println("\nCarro não encontrado\n");
-				return;
-
-			} else {
-				do {
-					String hora = ServicoVagas.validaHora(sc);
-
-					String hr[] = hora.split(":");
-					Integer hrs = Integer.parseInt(hr[0]);
-					Integer mins = Integer.parseInt(hr[1]);
-
-					String horaEntrada = vagas[posicao].getHoraEntrada();
-					String hrEnt[] = horaEntrada.split(":");
-					Integer hrsEnt = Integer.parseInt(hrEnt[0]);
-					Integer minEnt = Integer.parseInt(hrEnt[1]);
-
-					if (hrs < hrsEnt) {
-						System.err.println("\nDigite um horário maior que o horário de entrada!\n");
-					} else {
-						if (hrs == hrsEnt && mins < minEnt) {
-							System.err.println("\nDigite um horário maior que o horário de entrada!\n");
-						} else {
-							horaValida = true;
-							System.out.println(ServicoVagas.retirar(posicao, vagas, hora, registros));
-						}
-					}
-
-				} while (!horaValida);
-			}
-
-		}
+		case 1 -> estaciona(vagas, sc);
+		case 2 -> retiraVeiculo(vagas, sc, registros);
 		case 3 -> System.out.println(ServicoVagas.mostrarVagasLivres(vagas));
 		case 4 -> System.out.println(ServicoVagas.mostrarVagasOcupadas(vagas));
-		case 5 -> {
-			System.out.print("Digite a placa >> ");
-			String placa = sc.next();
-			Integer posicao = ServicoVagas.buscaCarro(placa, vagas);
-			if (posicao != 51) {
-				System.out.println("\nCarro da placa: " + placa + ", está na vaga: " + (posicao + 1) + "\n");
-			} else {
-				System.err.println("\nEste carro não foi encontrado.\n");
-			}
-		}
+		case 5 -> buscaVeiculo(vagas, sc);
 		case 6 -> System.out.println(ServicoRegistro.retornaRegistros(registros));
 		case 7 -> System.out.print(ServicoRegistro.retornaValorDoDia(registros) + "\n\n");
 		default -> System.err.println("OPÇÃO INVÁLIDA TENTE NOVAMENTE\n");
 		}
+	}
+
+	public static void buscaVeiculo(Vaga[] vagas, Scanner sc) {
+		System.out.print("Digite a placa >> ");
+		String placa = sc.next();
+		Integer posicao = ServicoVagas.buscaCarro(placa, vagas);
+		if (posicao != 51) {
+			System.out.println("\nCarro da placa: " + placa + ", está na vaga: " + (posicao + 1) + "\n");
+		} else {
+			System.err.println("\nEste carro não foi encontrado.\n");
+		}
+	}
+
+	public static void retiraVeiculo(Vaga[] vagas, Scanner sc, List<Registro> registros) {
+		boolean horaValida = false;
+		System.out.print("Digite a placa do veiculo >>> ");
+		String placa = sc.next();
+
+		Integer posicao = ServicoVagas.buscaCarro(placa, vagas);
+		if (posicao == 51) {
+			System.err.println("\nCarro não encontrado\n");
+			return;
+
+		} else {
+			do {
+				String hora = ServicoVagas.validaHora(sc);
+
+				String hr[] = hora.split(":");
+				Integer hrs = Integer.parseInt(hr[0]);
+				Integer mins = Integer.parseInt(hr[1]);
+
+				String horaEntrada = vagas[posicao].getHoraEntrada();
+				String hrEnt[] = horaEntrada.split(":");
+				Integer hrsEnt = Integer.parseInt(hrEnt[0]);
+				Integer minEnt = Integer.parseInt(hrEnt[1]);
+
+				if (hrs < hrsEnt) {
+					System.err.println("\nDigite um horário maior que o horário de entrada!\n");
+				} else {
+					if (hrs == hrsEnt && mins < minEnt) {
+						System.err.println("\nDigite um horário maior que o horário de entrada!\n");
+					} else {
+						horaValida = true;
+						System.out.println(ServicoVagas.retirar(posicao, vagas, hora, registros));
+					}
+				}
+
+			} while (!horaValida);
+		}
+	}
+
+	public static void estaciona(Vaga[] vagas, Scanner sc) {
+		Veiculo veiculo = new Veiculo();
+		ServicoVagas.cadastraVeiculo(sc, veiculo);
+		String hora = ServicoVagas.validaHora(sc);
+		System.out.println(ServicoVagas.estacionar(veiculo, vagas, hora));
 	}
 
 }
