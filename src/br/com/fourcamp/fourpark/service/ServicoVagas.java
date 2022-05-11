@@ -37,54 +37,56 @@ public interface ServicoVagas {
 
 	}
 
-	public static void mostrarVagasLivres(Vaga[] vagas) {
-		boolean imprimiu = false;
-
+	public static String mostrarVagasLivres(Vaga[] vagas) {
+		String txt = "";
+		
 		for (int i = 0; i < vagas.length; i++) {
 			if (!vagas[i].getOcupado()) {
-				System.out.println("A vaga " + vagas[i].getPosicao() + " está livre");
-				imprimiu = true;
+				txt += "A vaga " + vagas[i].getPosicao() + " está livre\n";
 			}
 		}
-		if (!imprimiu) {
-			System.err.println("Não há nenhuma vaga livre!");
+		if (txt.equalsIgnoreCase("")) {
+			txt = "Não há nenhuma vaga livre!";
 		}
-		System.out.println("");
+		return txt;
 	}
 
-	public static void mostrarVagasOcupadas(Vaga[] vagas) {
-		boolean imprimiu = false;
+	public static String mostrarVagasOcupadas(Vaga[] vagas) {
+		String txt = "";
 
 		for (int i = 0; i < vagas.length; i++) {
 			if (vagas[i].getOcupado()) {
-				System.out.println("A vaga " + vagas[i].getPosicao() + " está ocupada pelo " + vagas[i].getVeiculo());
-				imprimiu = true;
+				txt += "A vaga " + vagas[i].getPosicao() + " está ocupada pelo " + vagas[i].getVeiculo() + "\n";
 			}
 		}
-		if (!imprimiu) {
-			System.out.println("Não há nenhuma vaga ocupada!");
+		if (txt.equalsIgnoreCase("")) {
+			txt = "Não há nenhuma vaga ocupada!";
 		}
 
-		System.out.println("");
+		return txt;
 	}
 
-	public static void estacionar(Veiculo veiculo, Vaga[] vagas, String hora) {
+	public static String estacionar(Veiculo veiculo, Vaga[] vagas, String hora) {
+		String txt = "";
+		
 		if (buscaCarro(veiculo.getPlaca(), vagas) != 51) {
-			System.out.println("\nEste carro já está no estacionamento\n");
-			return;
+			txt = "\nEste carro já está no estacionamento\n";
+			return txt;
 		}
 		for (int x = 0; x <= 49; x++) {
 			if (!vagas[x].getOcupado()) {
 				vagas[x].setOcupado(true);
 				vagas[x].setVeiculo(veiculo);
 				vagas[x].setHoraEntrada(hora);
-				System.out.println("\nEstacionado com sucesso ás " + hora + "\n");
-				break;
+				txt = "\nEstacionado com sucesso ás " + hora + "\n";
+				return txt;
 			} else if (x == 49) {
-				System.err.println("\nNão há vagas disponíveis\n");
-				break;
+				txt = "\nNão há vagas disponíveis\n";
+				return txt;
 			}
 		}
+		
+		return txt;
 	}
 
 	public static Integer buscaCarro(String placa, Vaga[] vagas) {
@@ -101,16 +103,19 @@ public interface ServicoVagas {
 		return posicao;
 	}
 
-	public static void retirar(Integer posicao, Vaga[] vagas, String horaSaida, List<Registro> registros) {
+	public static String retirar(Integer posicao, Vaga[] vagas, String horaSaida, List<Registro> registros) {
+		String txt = "";
+		
 		vagas[posicao].setHoraSaida(horaSaida);
-		System.out.println("\n" + vagas[posicao].getVeiculo() + ", foi retirado da vaga " + (posicao + 1) + " às "
-				+ horaSaida + "\n");
+		txt = "\n" + vagas[posicao].getVeiculo() + ", foi retirado da vaga " + (posicao + 1) + " às "
+				+ horaSaida + "\n";
 		Double valorHora = ServicoRegistro.calcularValorHora(vagas[posicao]);
-		System.out.print("O valor foi de R$");
-		System.out.printf("%.2f\n\n", valorHora);
+		txt += "O valor foi de R$";
+		txt += String.format("%.2f\n\n", valorHora);
 		ServicoRegistro.atualizaRegistro(registros, vagas[posicao], valorHora);
 		vagas[posicao].setOcupado(false);
 		vagas[posicao].setVeiculo(null);
+		return txt;
 	}
 
 	static String validaHora(Scanner sc) {

@@ -43,7 +43,7 @@ public interface Menu {
 			Veiculo veiculo = new Veiculo();
 			ServicoVagas.cadastraVeiculo(sc, veiculo);
 			String hora = ServicoVagas.validaHora(sc);
-			ServicoVagas.estacionar(veiculo, vagas, hora);
+			System.out.println(ServicoVagas.estacionar(veiculo, vagas, hora));
 		}
 		case 2 -> {
 			boolean horaValida = false;
@@ -75,7 +75,7 @@ public interface Menu {
 							System.err.println("\nDigite um horário maior que o horário de entrada!\n");
 						} else {
 							horaValida = true;
-							ServicoVagas.retirar(posicao, vagas, hora, registros);
+							System.out.println(ServicoVagas.retirar(posicao, vagas, hora, registros));
 						}
 					}
 
@@ -83,8 +83,8 @@ public interface Menu {
 			}
 
 		}
-		case 3 -> ServicoVagas.mostrarVagasLivres(vagas);
-		case 4 -> ServicoVagas.mostrarVagasOcupadas(vagas);
+		case 3 -> System.out.println(ServicoVagas.mostrarVagasLivres(vagas));
+		case 4 -> System.out.println(ServicoVagas.mostrarVagasOcupadas(vagas));
 		case 5 -> {
 			System.out.print("Digite a placa >> ");
 			String placa = sc.next();
@@ -95,8 +95,8 @@ public interface Menu {
 				System.err.println("\nEste carro não foi encontrado.\n");
 			}
 		}
-		case 6 -> ServicoRegistro.retornaRegistros(registros);
-		case 7 -> ServicoRegistro.retornaValorDoDia(registros);
+		case 6 -> System.out.println(ServicoRegistro.retornaRegistros(registros));
+		case 7 -> System.out.print(ServicoRegistro.retornaValorDoDia(registros) + "\n\n");
 		default -> System.err.println("OPÇÃO INVÁLIDA TENTE NOVAMENTE\n");
 		}
 	}

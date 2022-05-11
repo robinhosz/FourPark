@@ -31,23 +31,25 @@ public interface ServicoRegistro {
 		registros.add(registro);
 	}
 
-	static void retornaRegistros(List<Registro> registros) {
+	static String retornaRegistros(List<Registro> registros) {
+		String txt = "";
 		for (Registro registro : registros) {
-			System.out.println(registro);
+			txt += registro;
 		}
 		if (registros.isEmpty()) {
-			System.err.println("A lista de registros está vazia \n");
+			txt = "A lista de registros está vazia \n";
 		}
-
+		
+		return txt;
 	}
 
-	static void retornaValorDoDia(List<Registro> registros) {
+	static String retornaValorDoDia(List<Registro> registros) {
 		Double valorTotal = 0.0;
 		for (Registro registro : registros) {
 			valorTotal += registro.getValor();
 		}
-		System.out.print("O valor total do dia é de R$");
-		System.out.printf("%.2f\n\n", valorTotal);
+		String txt = String.format("O valor total do dia é de R$%.2f", valorTotal);
+		return txt;
 
 	}
 	
