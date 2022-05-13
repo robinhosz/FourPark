@@ -1,4 +1,4 @@
-<h2 align="center">FourParking  🚘🚗</h2>
+<h2 align="center">FourParking  🚘</h2>
 
 <p align="center">
  <a href="#-sobre-o-projeto">Sobre</a> •
