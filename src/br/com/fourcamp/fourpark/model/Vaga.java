@@ -13,11 +13,6 @@ public class Vaga {
 		this.posicao = posicao;
 	}
 
-	@Override
-	public String toString() {
-		return "Vaga número " + posicao;
-	}
-
 	public Integer getPosicao() {
 		return posicao;
 	}
@@ -57,5 +52,9 @@ public class Vaga {
 	public void setOcupado(Boolean ocupado) {
 		this.ocupado = ocupado;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Vaga número " + posicao;
+	}
 }
