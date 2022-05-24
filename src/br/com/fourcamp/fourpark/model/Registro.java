@@ -1,7 +1,5 @@
 package br.com.fourcamp.fourpark.model;
 
-import java.text.Format;
-
 public class Registro {
 
 	private int resgistro;

@@ -2,7 +2,6 @@ package br.com.fourcamp.fourpark.service;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.com.fourcamp.fourpark.model.Registro;
@@ -23,18 +22,18 @@ public interface ServicoVagas {
 	public static void cadastraVeiculo(Scanner sc, Veiculo veiculo) {
 
 		System.out.print("Digite o modelo do veículo: ");
-		sc.nextLine();
-		veiculo.setModelo(sc.nextLine());
-
+		String modelo = sc.next();
 		System.out.print("Digite a placa do veículo: ");
-		veiculo.setPlaca(sc.nextLine());
-
+		String placa = sc.next();
 		System.out.print("Digite o nome do proprietário: ");
-		veiculo.setProprietario(sc.nextLine());
-
+		String proprietario = sc.next();
 		System.out.print("Digite o documento do proprietário: ");
-		veiculo.setDocumento(sc.nextLine());
-
+		String documento = sc.next();
+		
+		veiculo.setModelo(modelo);
+		veiculo.setPlaca(placa);
+		veiculo.setProprietario(proprietario);
+		veiculo.setDocumento(documento);
 	}
 
 	public static String mostrarVagasLivres(Vaga[] vagas) {
@@ -62,7 +61,6 @@ public interface ServicoVagas {
 		if (txt.equalsIgnoreCase("")) {
 			txt = "Não há nenhuma vaga ocupada!";
 		}
-
 		return txt;
 	}
 
@@ -85,7 +83,6 @@ public interface ServicoVagas {
 				return txt;
 			}
 		}
-		
 		return txt;
 	}
 
@@ -113,38 +110,22 @@ public interface ServicoVagas {
 		txt += "O valor foi de R$";
 		txt += String.format("%.2f\n\n", valorHora);
 		ServicoRegistro.atualizaRegistro(registros, vagas[posicao], valorHora);
-		vagas[posicao].setOcupado(false);
-		vagas[posicao].setVeiculo(null);
+		vagas[posicao] = new Vaga(posicao);
 		return txt;
 	}
 
 	static String validaHora(Scanner sc) {
-		String regex = "\\b([0-2]{1})([0-9]{1})\\:([0-5]{1})([0-9]{1})";
+		Pattern regex = Pattern.compile("^([0-1]{1})([0-9]{1})\\:([0-5]{1})([0-9]{1})$");
+		Pattern regex2 = Pattern.compile("^([2]{1})([0-3]{1})\\:([0-5]{1})([0-9]{1})$");
 		do {
 			System.out.print("Digite o horário: ");
 			String hora = sc.next();
-			String hr[] = hora.split(":");
-			try {
-				Integer hrs = Integer.parseInt(hr[0]);
-				
-				Pattern padrao = Pattern.compile(regex);
-
-				Matcher match = padrao.matcher(hora);
-
-				if (!match.find() || hora.length() > 5) {
-					System.err.println("\nPor gentileza, Digite a HORA de acordo com o padrão HH:MM! \n");
-					ThreadDelay();
-				} else if (hrs >= 24) {
-					System.err.println("\nERRO! Digite um horário menor que 24 horas.\n");
-					ThreadDelay();
-				} else {
-					return hora;
-				}
-			} catch (Exception e) {
-				System.err.println("\nPor gentileza, Digite a HORA de acordo com o padrão HH:MM! \n");
+			if (regex.matcher(hora).matches() || regex2.matcher(hora).matches()) {
+				return hora;
+			} else {
+				System.err.println("\nERRO! Digite um horário dentro do padrão HH:mm e menor que 24 horas!\n");
 				ThreadDelay();
 			}
-			
 		} while (true);
 	}
 
